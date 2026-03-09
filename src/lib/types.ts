@@ -6,3 +6,9 @@ export interface Song {
     author: string;
     text: string;
 }
+
+export interface Lista {
+    number: number;
+    title: string;
+    elements: number[];
+}
