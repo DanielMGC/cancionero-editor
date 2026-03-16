@@ -1,1 +1,0 @@
-import{m as E,c as o,v as u,w as _,h as t,C as g,x as i,i as l,f as d,o as m,y as p}from"./wiVUcIWn.js";function C(n,r){let s=null,f=t;var a;if(t){s=m;for(var e=p(document.head);e!==null&&(e.nodeType!==g||e.data!==n);)e=i(e);if(e===null)l(!1);else{var y=i(e);e.remove(),d(y)}}t||(a=document.head.appendChild(E()));try{o(()=>r(a),u|_)}finally{f&&(l(!0),d(s))}}export{C as h};
