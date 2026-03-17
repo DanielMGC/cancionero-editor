@@ -35,7 +35,7 @@
             status = 'Redirigiendo a la tienda de aplicaciones...';
             if (isIOS) {
                 //window.location.replace(appStoreLink);
-                status = 'Lamentablemente la app no está disponible para dispositivos iOS.';
+                status = 'Lamentablemente la app no está disponible para dispositivos iOS...';
             } else if (isAndroid) {
                 window.location.replace(playStoreLink);
             } else {
