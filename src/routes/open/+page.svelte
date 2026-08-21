@@ -22,11 +22,11 @@
         // 1. Handle List Import QR Codes
         if (action === 'importList' && title && elements) {
             // Re-encode the title so spaces don't break the deep link URI
-            deepLink = `cancionero://canto?action=${action}&title=${encodeURIComponent(title)}&elements=${elements}`;
+            deepLink = `cancionerocarmen://canto?action=${action}&title=${encodeURIComponent(title)}&elements=${elements}`;
         } 
         // 2. Handle Single Canto QR Codes
         else if (number && type) {
-            deepLink = `cancionero://canto?initialNumber=${number}&type=${type}`;
+            deepLink = `cancionerocarmen://canto?initialNumber=${number}&type=${type}`;
             if (listaElements) deepLink += `&listaElements=${listaElements}`;
             if (originalType) deepLink += `&originalType=${originalType}`;
         } 
