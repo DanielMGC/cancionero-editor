@@ -5,22 +5,36 @@
 
     onMount(() => {
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Canto/Prayer Params
         const number = urlParams.get('initialNumber');
         const type = urlParams.get('type');
-        
-        // ⭐️ NEW: Catch the extra list context parameters
         const listaElements = urlParams.get('listaElements');
         const originalType = urlParams.get('originalType');
+        
+        // List Import Params
+        const action = urlParams.get('action');
+        const title = urlParams.get('title');
+        const elements = urlParams.get('elements');
 
-        if (!number || !type) {
-            status = 'Enlace inválido.';
+        let deepLink = '';
+
+        // 1. Handle List Import QR Codes
+        if (action === 'importList' && title && elements) {
+            // Re-encode the title so spaces don't break the deep link URI
+            deepLink = `cancionero://canto?action=${action}&title=${encodeURIComponent(title)}&elements=${elements}`;
+        } 
+        // 2. Handle Single Canto QR Codes
+        else if (number && type) {
+            deepLink = `cancionero://canto?initialNumber=${number}&type=${type}`;
+            if (listaElements) deepLink += `&listaElements=${listaElements}`;
+            if (originalType) deepLink += `&originalType=${originalType}`;
+        } 
+        // 3. Fallback for actually broken links
+        else {
+            status = 'Enlace inválido...';
             return;
         }
-
-        // ⭐️ NEW: Build the deep link dynamically with all available parameters
-        let deepLink = `cancionerocarmen://canto?initialNumber=${number}&type=${type}`;
-        if (listaElements) deepLink += `&listaElements=${listaElements}`;
-        if (originalType) deepLink += `&originalType=${originalType}`;
 
         const appStoreLink = 'https://apps.apple.com/app/idYOUR_APPLE_ID'; 
         const playStoreLink = 'https://play.google.com/store/apps/details?id=ar.gclua.cancionerov2';
@@ -34,8 +48,7 @@
         setTimeout(() => {
             status = 'Redirigiendo a la tienda de aplicaciones...';
             if (isIOS) {
-                //window.location.replace(appStoreLink);
-                status = 'Lamentablemente la app no está disponible para dispositivos iOS...';
+                status = 'Lamentablemente la app no está disponible para dispositivos iOS.';
             } else if (isAndroid) {
                 window.location.replace(playStoreLink);
             } else {
